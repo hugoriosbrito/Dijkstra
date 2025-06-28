@@ -152,8 +152,8 @@ except:
 
 grafo_dijkstra = Dijkstra(G)
 
-endereco_origem_str = "Av. Luís Viana Filho, 6775, Salvador, Bahia, Brasil"  # Unijorge Paralela
-endereco_destino_str = "Av. Orlando Gomes, 1845, Salvador, Bahia, Brasil"  # Senai Cimatec Piatã
+endereco_origem_str = "Galinha Branca Eletricista De Auto · R. Almiro Romualdo da Silva - Campinas de Brotas, Salvador - BA, 40275-030, Brazil"  # Unijorge Paralela
+endereco_destino_str = "Salvador Shopping, Salvador, Bahia, Brasil"  # Senai Cimatec Piatã
 
 origem = grafo_dijkstra.encontrar_no_por_endereco(G, address_string = endereco_origem_str)
 destino = grafo_dijkstra.encontrar_no_por_endereco(G,address_string = endereco_destino_str)
@@ -163,21 +163,3 @@ if rota is not None:
     grafo_dijkstra.gerar_visualizacao_html(rota, origem=origem, destino=destino,
                                            endereco_origem_str=endereco_origem_str,
                                            endereco_destino_str=endereco_destino_str)
-
-    # consertar geração de gif a partir daqui
-    vd = VisualDijkstra(G, rota)
-    fig, ax = plt.subplots(figsize=(10, 10))
-    frames = len(rota)
-
-    try:
-        plt.tight_layout()
-        ani = animation.FuncAnimation(fig, vd.update_frame, frames=frames, interval=500, blit=False)
-
-        gif_file = 'rota_animacao.gif'
-        ani.save(gif_file, writer='pillow', fps=2)
-        print(f"gif salvo com sucesso: '{gif_file}'")
-    except Exception as e:
-        print(f"Erro ao gerar o GIF: {e}")
-    finally:
-        plt.close(fig)
-
