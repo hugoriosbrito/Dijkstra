@@ -118,31 +118,6 @@ class Dijkstra:
             m.save(map_file_html)
             print(f"Mapa salvo em '{map_file_html}'")
 
-#todo: consertar erro de geração de gif
-class VisualDijkstra:
-    def __init__(self, graph, rota):
-        self.graph = graph
-        self.rota = rota
-        self.pos = nx.spring_layout(graph)
-
-    def update_frame(self, frame_num):
-        plt.clf()
-
-        nx.draw(self.graph, self.pos, node_color='lightgray',
-                edge_color='lightgray', with_labels=False, node_size=30)
-
-        rota_atual = self.rota[:frame_num + 1]
-        if len(rota_atual) > 1:
-            arestas = list(zip(rota_atual[:-1], rota_atual[1:]))
-            nx.draw_networkx_edges(self.graph, self.pos,
-                                   edgelist=arestas, edge_color='red', width=2)
-            nx.draw_networkx_nodes(self.graph, self.pos,
-                                   nodelist=rota_atual, node_color='red',
-                                   node_size=50)
-
-        plt.title(f"Frame: {frame_num + 1}/{len(self.rota)}")
-        return plt.gca(),
-
 place = "Salvador, Bahia, Brasil"
 G = ox.graph.graph_from_place(place, network_type="drive")
 try:
@@ -152,7 +127,7 @@ except:
 
 grafo_dijkstra = Dijkstra(G)
 
-endereco_origem_str = "Galinha Branca Eletricista De Auto · R. Almiro Romualdo da Silva - Campinas de Brotas, Salvador - BA, 40275-030, Brazil"  # Unijorge Paralela
+endereco_origem_str = "R. Almiro Romualdo da Silva - Campinas de Brotas 40275-030, Salvador, Bahia, Brasil"  # Unijorge Paralela
 endereco_destino_str = "Salvador Shopping, Salvador, Bahia, Brasil"  # Senai Cimatec Piatã
 
 origem = grafo_dijkstra.encontrar_no_por_endereco(G, address_string = endereco_origem_str)

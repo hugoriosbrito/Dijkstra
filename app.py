@@ -239,4 +239,3 @@ if st.session_state.messages:
             st.info(f"{message}")
 
 st.markdown("---")
-st.info("Powered by Streamlit, OSMnx, geopy, and Folium.")
